@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dev-mysql
+spec:
+  selector:
+    matchLabels:
+      app: dev-mysql
+  serviceName: "dev-mysql"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dev-mysql
+    spec:
+      containers:
+      - name: dev-mysql
+        image: 522814728660.dkr.ecr.ap-south-1.amazonaws.com/expense-mysql:v1
+        ports:
+        - containerPort: 3306
+        resources:
+          requests:
+            memory: 1Gi
+            cpu: 500m
+          limits:
+            memory: 2Gi
+            cpu: 800m
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dev-mysql
+              key: password
+        volumeMounts:
+        - name: dev-mysql
+          mountPath: /var/lib/mysql
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - mysqladmin ping -h 127.0.0.1 -u root -p$MYSQL_ROOT_PASSWORD
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - mysqladmin ping -h 127.0.0.1 -u root -p$MYSQL_ROOT_PASSWORD
+
+  volumeClaimTemplates:
+  - metadata:
+      name: dev-mysql
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "expense"
+      resources:
+        requests:
+          storage: 1Gi

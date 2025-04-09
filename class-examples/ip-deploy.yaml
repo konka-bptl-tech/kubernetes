@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-print-ip
+  labels:
+    app: nginx-print-ip
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nginx-print-ip
+  template:
+    metadata:
+      labels:
+        app: nginx-print-ip
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+          - containerPort: 80
+        volumeMounts:
+          - name: html
+            mountPath: /usr/share/nginx/html
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            echo '<h1 style="color: white; background-color: orange; padding: 20px;">Pod IP: ' $(hostname -i) '</h1>' > /usr/share/nginx/html/index.html
+            exec nginx -g 'daemon off;'
+      volumes:
+        - name: html
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ip-service
+spec:
+  selector:
+    app: nginx-print-ip
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-test
+spec:
+  containers:
+  - name: ubuntu
+    image: ubuntu
+    command: ["/bin/sh", "-c"]
+    args: ["sleep 3600"]
