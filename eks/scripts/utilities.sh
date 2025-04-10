@@ -7,3 +7,6 @@ kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernete
 
 echo "Creating SC"
 kubectl apply -f ../../volumes/expense.yaml
+
+echo "create ns"
+kubectl create ns expense
