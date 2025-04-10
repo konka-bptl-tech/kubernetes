@@ -7,11 +7,11 @@ ZONES="ap-south-1a,ap-south-1b"
 
 
 
-# echo "Creating EKS cluster..."
-# eksctl create cluster --name $CLUSTER_NAME \
-#                       --region $REGION \
-#                       --zones $ZONES \
-#                       --without-nodegroup
+echo "Creating EKS cluster..."
+eksctl create cluster --name $CLUSTER_NAME \
+                      --region $REGION \
+                      --zones $ZONES \
+                      --without-nodegroup
 
 echo "Associating IAM OIDC provider..."
 eksctl utils associate-iam-oidc-provider \
