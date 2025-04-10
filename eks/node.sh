@@ -9,7 +9,7 @@ NODES_MIN=2
 NODES_MAX=6
 NODE_VOLUME_SIZE=20
 SSH_PUBLIC_KEY="siva"
-PROFILE="eks"
+
 
 echo "Creating nodegroup..."
 eksctl create nodegroup --cluster=$CLUSTER_NAME \
@@ -22,7 +22,6 @@ eksctl create nodegroup --cluster=$CLUSTER_NAME \
                        --node-volume-size=$NODE_VOLUME_SIZE \
                        --ssh-access \
                        --ssh-public-key=$SSH_PUBLIC_KEY \
-                       --profile $PROFILE \
                        --managed \
                        --asg-access \
                        --external-dns-access
