@@ -22,7 +22,5 @@ eksctl create nodegroup --cluster=$CLUSTER_NAME \
                        --node-volume-size=$NODE_VOLUME_SIZE \
                        --ssh-access \
                        --ssh-public-key=$SSH_PUBLIC_KEY \
-                       --managed \
-                       --asg-access \
-                       --external-dns-access
+                       --managed
 # --spot
