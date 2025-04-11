@@ -10,7 +10,6 @@ eksctl create iamserviceaccount \
   --name "external-dns" \
   --namespace kube-system \
   --attach-policy-arn $POLICY_ARN \
-  --override-existing-serviceaccounts \
   --approve
 
 echo "Add external DNS helm chart"
