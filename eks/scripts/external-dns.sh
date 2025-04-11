@@ -17,5 +17,10 @@ echo "Add external DNS helm chart"
 helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
 
 echo "Installing DNS helm chart"
-helm upgrade --install external-dns external-dns/external-dns --namespace kube-system
+helm upgrade --install external-dns external-dns/external-dns \
+  --namespace kube-system \
+  --set serviceAccount.create=false \
+  --set serviceAccount.name=external-dns
+
+
 
