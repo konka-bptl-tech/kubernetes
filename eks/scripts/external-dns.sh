@@ -2,6 +2,7 @@
 
 EKS_CLUSTER_NAME="karpenter"
 POLICY_ARN="arn:aws:iam::522814728660:policy/ExternalDNSPolicy"
+REGION="ap-south-1"
 
 
 echo "Create OIDC for External DNS"
