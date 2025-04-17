@@ -9,4 +9,6 @@ echo "Creating SC"
 kubectl apply -f ../../volumes/
 
 echo "create ns"
-kubectl create ns expense instana
+for ns in expense instana; do
+  kubectl create namespace $ns
+done
