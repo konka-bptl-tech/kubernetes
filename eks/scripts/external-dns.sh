@@ -3,6 +3,7 @@
 EKS_CLUSTER_NAME="karpenter"
 POLICY_ARN="arn:aws:iam::522814728660:policy/ExternalDNSPolicy"
 
+
 echo "Creating Service Account"
 eksctl create iamserviceaccount \
       --cluster=$EKS_CLUSTER_NAME \
