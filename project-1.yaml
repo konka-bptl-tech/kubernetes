@@ -28,7 +28,7 @@ spec:
                     self.send_header('Content-type','text/html')
                     self.end_headers()
                     ip = self.client_address[0]
-                    self.wfile.write(f"<html><body style='background-color:yellow; color:white;'><h1>Project2: {ip}</h1></body></html>".encode())
+                    self.wfile.write(f"<html><body style='background-color:red; color:white;'><h1>Project2: {ip}</h1></body></html>".encode())
 
             HTTPServer(('', 8080), Handler).serve_forever()
         ports:
