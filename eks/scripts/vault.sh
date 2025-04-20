@@ -9,4 +9,4 @@ helm install external-secrets \
     -n kube-system
 
 echo "Install ClusterSecretStore"
-kubectl apply -f ss.yaml  
+kubectl apply -f ss.yaml
